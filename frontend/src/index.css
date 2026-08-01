@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Base ── */
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    @apply bg-lab-hero text-white min-h-screen font-sans antialiased;
+    background-attachment: fixed;
+  }
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { @apply bg-transparent; }
+  ::-webkit-scrollbar-thumb { @apply bg-white/20 rounded-full; }
+}
+
+/* ── Reusable Component Classes ── */
+@layer components {
+  /* Glass card */
+  .glass {
+    @apply bg-white/[0.08] backdrop-blur-[12px] border border-white/[0.15] rounded-2xl shadow-glass;
+  }
+  .glass-sm {
+    @apply bg-white/[0.06] backdrop-blur-[8px] border border-white/[0.12] rounded-xl shadow-glass-sm;
+  }
+  .glass-hover {
+    @apply hover:bg-white/[0.12] transition-colors duration-200;
+  }
+
+  /* Buttons */
+  .btn-primary {
+    @apply bg-brand-500 hover:bg-brand-600 active:bg-brand-700 text-white font-semibold
+           px-5 py-2.5 rounded-xl transition-all duration-200 shadow-lg
+           hover:shadow-brand-500/30 hover:shadow-xl hover:-translate-y-0.5;
+  }
+  .btn-ghost {
+    @apply bg-white/[0.08] hover:bg-white/[0.15] border border-white/20 text-white
+           font-medium px-5 py-2.5 rounded-xl transition-all duration-200;
+  }
+  .btn-danger {
+    @apply bg-red-500/20 hover:bg-red-500/30 border border-red-500/40 text-red-300
+           font-medium px-4 py-2 rounded-lg transition-all duration-200;
+  }
+
+  /* Inputs */
+  .input {
+    @apply w-full bg-white/[0.07] border border-white/20 rounded-xl px-4 py-2.5
+           text-white placeholder-white/40 outline-none
+           focus:border-brand-400 focus:bg-white/[0.10] transition-all duration-200;
+  }
+  .label {
+    @apply block text-sm font-medium text-white/70 mb-1.5;
+  }
+
+  /* Badges */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold;
+  }
+  .badge-blue   { @apply bg-brand-500/20 text-brand-300 border border-brand-500/30; }
+  .badge-green  { @apply bg-emerald-500/20 text-emerald-300 border border-emerald-500/30; }
+  .badge-amber  { @apply bg-amber-500/20 text-amber-300 border border-amber-500/30; }
+  .badge-red    { @apply bg-red-500/20 text-red-300 border border-red-500/30; }
+
+  /* Table */
+  .table-wrapper { @apply glass overflow-hidden; }
+  .table-head { @apply bg-white/[0.05] text-white/60 text-xs font-semibold uppercase tracking-wider; }
+  .table-row  { @apply border-t border-white/[0.06] hover:bg-white/[0.04] transition-colors duration-150; }
+  .table-cell { @apply px-4 py-3.5 text-sm text-white/85; }
+
+  /* Page heading */
+  .page-title { @apply text-2xl font-bold text-white tracking-tight; }
+  .page-sub   { @apply text-white/50 text-sm mt-0.5; }
+
+  /* Stat card */
+  .stat-card {
+    @apply glass p-5 flex flex-col gap-1.5 animate-fade-in;
+  }
+  .stat-value { @apply text-3xl font-bold text-white; }
+  .stat-label { @apply text-sm text-white/50; }
+}

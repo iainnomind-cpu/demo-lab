@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { api } from '../services/api';
-import { Play, CheckCircle2, XCircle, Clock, Plus, Settings, MessageCircle, Mail, AlertCircle, Edit2, Trash2, Send } from 'lucide-react';
+import { Play, CheckCircle2, XCircle, Clock, Plus, MessageCircle, Mail, Trash2, Send } from 'lucide-react';
 
 const ESTADO_ICON: Record<string, any> = {
   pendiente: { icon: Clock,         cls: 'text-amber-500'  },

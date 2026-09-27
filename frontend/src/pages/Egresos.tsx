@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { api } from '../../services/api';
+import { api } from '../services/api';
 import { Plus, Trash2 } from 'lucide-react';
 
 export default function Egresos() {
@@ -74,10 +74,10 @@ export default function Egresos() {
           <tbody>
             {items.map(e => (
               <tr key={e.id} className="table-row">
-                <td className="table-cell text-white/60">{new Date(e.fecha).toLocaleDateString('es-MX')}</td>
+                <td className="table-cell text-ink-secondary">{new Date(e.fecha).toLocaleDateString('es-MX')}</td>
                 <td className="table-cell">{e.sucursales?.nombre}</td>
                 <td className="table-cell"><span className="badge badge-amber">{e.categoria}</span></td>
-                <td className="table-cell text-white/60">{e.folio_factura || '—'}</td>
+                <td className="table-cell text-ink-secondary">{e.folio_factura || '—'}</td>
                 <td className="table-cell font-semibold text-red-300">${Number(e.monto).toFixed(2)}</td>
                 <td className="table-cell text-right">
                   <button className="btn-danger px-2.5 py-1.5" onClick={async () => { if (confirm('¿Eliminar?')) { await api.delete(`/api/egresos/${e.id}`); load(); } }}>

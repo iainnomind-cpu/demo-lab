@@ -36,8 +36,8 @@ export default function Login() {
           <div className="w-14 h-14 bg-brand-500/20 border border-brand-400/40 rounded-2xl flex items-center justify-center mb-4 shadow-lg shadow-brand-500/20">
             <FlaskConical className="w-7 h-7 text-brand-400" />
           </div>
-          <h1 className="text-xl font-bold text-white">Laboratorio Clínico</h1>
-          <p className="text-white/50 text-sm mt-1">Sistema de Gestión</p>
+          <h1 className="text-xl font-bold text-ink-primary">Laboratorio Clínico</h1>
+          <p className="text-ink-secondary text-sm mt-1">Sistema de Gestión</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">

@@ -37,16 +37,16 @@ export const listMedicos = async (_req: Request, res: Response) => {
 };
 
 export const createMedico = async (req: Request, res: Response) => {
-  const { nombre_completo, telefono } = req.body;
+  const { nombre_completo, telefono, especialidad, cedula_profesional, email } = req.body;
   if (!nombre_completo) return res.status(400).json({ error: 'nombre_completo requerido' });
-  const { data, error } = await supabase.from('medicos_referentes').insert({ nombre_completo, telefono }).select().single();
+  const { data, error } = await supabase.from('medicos_referentes').insert({ nombre_completo, telefono, especialidad, cedula_profesional, email }).select().single();
   if (error) return res.status(500).json({ error: error.message });
   res.status(201).json(data);
 };
 
 export const updateMedico = async (req: Request, res: Response) => {
-  const { nombre_completo, telefono } = req.body;
-  const { data, error } = await supabase.from('medicos_referentes').update({ nombre_completo, telefono }).eq('id', req.params.id).select().single();
+  const { nombre_completo, telefono, especialidad, cedula_profesional, email } = req.body;
+  const { data, error } = await supabase.from('medicos_referentes').update({ nombre_completo, telefono, especialidad, cedula_profesional, email }).eq('id', req.params.id).select().single();
   if (error) return res.status(500).json({ error: error.message });
   res.json(data);
 };
@@ -65,16 +65,22 @@ export const listEstudios = async (_req: Request, res: Response) => {
 };
 
 export const createEstudio = async (req: Request, res: Response) => {
-  const { nombre, precio, meses_recordatorio } = req.body;
+  const { nombre, precio, meses_recordatorio, codigo_interno, tipo_muestra, tubo_requerido, requiere_ayuno, horas_ayuno, tiempo_entrega_hrs, area, instrucciones_paciente } = req.body;
   if (!nombre || precio == null) return res.status(400).json({ error: 'nombre y precio requeridos' });
-  const { data, error } = await supabase.from('estudios_catalogo').insert({ nombre, precio, meses_recordatorio: meses_recordatorio ?? 12 }).select().single();
+  
+  const payload = { nombre, precio, meses_recordatorio: meses_recordatorio ?? 12, codigo_interno, tipo_muestra, tubo_requerido, requiere_ayuno: !!requiere_ayuno, horas_ayuno, tiempo_entrega_hrs, area, instrucciones_paciente };
+  
+  const { data, error } = await supabase.from('estudios_catalogo').insert(payload).select().single();
   if (error) return res.status(500).json({ error: error.message });
   res.status(201).json(data);
 };
 
 export const updateEstudio = async (req: Request, res: Response) => {
-  const { nombre, precio, meses_recordatorio } = req.body;
-  const { data, error } = await supabase.from('estudios_catalogo').update({ nombre, precio, meses_recordatorio }).eq('id', req.params.id).select().single();
+  const { nombre, precio, meses_recordatorio, codigo_interno, tipo_muestra, tubo_requerido, requiere_ayuno, horas_ayuno, tiempo_entrega_hrs, area, instrucciones_paciente } = req.body;
+  
+  const payload = { nombre, precio, meses_recordatorio, codigo_interno, tipo_muestra, tubo_requerido, requiere_ayuno: !!requiere_ayuno, horas_ayuno, tiempo_entrega_hrs, area, instrucciones_paciente };
+  
+  const { data, error } = await supabase.from('estudios_catalogo').update(payload).eq('id', req.params.id).select().single();
   if (error) return res.status(500).json({ error: error.message });
   res.json(data);
 };
@@ -106,16 +112,18 @@ export const getPaciente = async (req: Request, res: Response) => {
 };
 
 export const createPaciente = async (req: Request, res: Response) => {
-  const { nombre_completo, fecha_nacimiento, email, whatsapp } = req.body;
+  const { nombre_completo, fecha_nacimiento, sexo, curp, numero_expediente, aseguradora, no_poliza, email, whatsapp } = req.body;
   if (!nombre_completo) return res.status(400).json({ error: 'nombre_completo requerido' });
-  const { data, error } = await supabase.from('pacientes').insert({ nombre_completo, fecha_nacimiento, email, whatsapp }).select().single();
+  const payload = { nombre_completo, fecha_nacimiento, sexo, curp, numero_expediente, aseguradora, no_poliza, email, whatsapp };
+  const { data, error } = await supabase.from('pacientes').insert(payload).select().single();
   if (error) return res.status(500).json({ error: error.message });
   res.status(201).json(data);
 };
 
 export const updatePaciente = async (req: Request, res: Response) => {
-  const { nombre_completo, fecha_nacimiento, email, whatsapp } = req.body;
-  const { data, error } = await supabase.from('pacientes').update({ nombre_completo, fecha_nacimiento, email, whatsapp }).eq('id', req.params.id).select().single();
+  const { nombre_completo, fecha_nacimiento, sexo, curp, numero_expediente, aseguradora, no_poliza, email, whatsapp } = req.body;
+  const payload = { nombre_completo, fecha_nacimiento, sexo, curp, numero_expediente, aseguradora, no_poliza, email, whatsapp };
+  const { data, error } = await supabase.from('pacientes').update(payload).eq('id', req.params.id).select().single();
   if (error) return res.status(500).json({ error: error.message });
   res.json(data);
 };

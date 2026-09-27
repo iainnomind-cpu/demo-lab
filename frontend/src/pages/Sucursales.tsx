@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { api } from '../../services/api';
+import { api } from '../services/api';
 import { Plus, Pencil, Trash2 } from 'lucide-react';
 
 interface Sucursal { id: string; nombre: string; tipo: string; activo: boolean; }
@@ -40,7 +40,7 @@ export default function Sucursales() {
 
       {/* Form */}
       <form onSubmit={submit} className="glass p-5 space-y-4">
-        <h2 className="text-sm font-semibold text-white/70">{editing ? 'Editar sucursal' : 'Nueva sucursal'}</h2>
+        <h2 className="text-sm font-semibold text-ink-primary">{editing ? 'Editar sucursal' : 'Nueva sucursal'}</h2>
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="label">Nombre</label>

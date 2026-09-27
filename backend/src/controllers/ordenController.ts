@@ -21,11 +21,19 @@ export const listOrdenes = async (req: AuthRequest, res: Response) => {
 };
 
 export const createOrden = async (req: AuthRequest, res: Response) => {
-  const { paciente_id, sucursal_id, medico_id, estudios } = req.body as {
+  const { 
+    paciente_id, sucursal_id, medico_id, estudios,
+    prioridad, descuento_monto, ayuno_confirmado, observaciones_clinicas, nota_interna
+  } = req.body as {
     paciente_id: string;
     sucursal_id: string;
     medico_id?: string;
     estudios: string[]; // array de estudio_id
+    prioridad?: string;
+    descuento_monto?: number;
+    ayuno_confirmado?: boolean;
+    observaciones_clinicas?: string;
+    nota_interna?: string;
   };
 
   if (!paciente_id || !sucursal_id || !estudios?.length) {
@@ -44,11 +52,25 @@ export const createOrden = async (req: AuthRequest, res: Response) => {
   }
 
   // Calcular costo_total en backend (Principio IV) — el frontend nunca lo envía
-  const costo_total = catalogItems.reduce((sum, e) => sum + Number(e.precio), 0);
+  const subtotal = catalogItems.reduce((sum, e) => sum + Number(e.precio), 0);
+  const descuento = Number(descuento_monto) || 0;
+  const costo_total = Math.max(0, subtotal - descuento); // No permitir negativo
+
+  const payload = {
+    paciente_id, 
+    sucursal_id, 
+    medico_id: medico_id || null, 
+    costo_total,
+    descuento_monto: descuento,
+    prioridad: prioridad || 'normal',
+    ayuno_confirmado,
+    observaciones_clinicas,
+    nota_interna
+  };
 
   const { data: orden, error: ordenError } = await supabase
     .from('ordenes')
-    .insert({ paciente_id, sucursal_id, medico_id: medico_id || null, costo_total })
+    .insert(payload)
     .select()
     .single();
 

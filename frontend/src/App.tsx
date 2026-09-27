@@ -12,6 +12,9 @@ import Ordenes       from './pages/Ordenes';
 import Egresos       from './pages/Egresos';
 import Reportes      from './pages/Reportes';
 import Recordatorios from './pages/Recordatorios';
+import Pagos         from './pages/Pagos';
+import Usuarios      from './pages/Usuarios';
+import Configuracion from './pages/Configuracion';
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
@@ -35,6 +38,9 @@ function AppRoutes() {
         <Route path="/egresos"       element={<Egresos />} />
         <Route path="/reportes"      element={<Reportes />} />
         <Route path="/recordatorios" element={<Recordatorios />} />
+        <Route path="/pagos"         element={<Pagos />} />
+        <Route path="/usuarios"      element={<Usuarios />} />
+        <Route path="/configuracion" element={<Configuracion />} />
       </Route>
       <Route path="*" element={<Navigate to="/dashboard" replace />} />
     </Routes>

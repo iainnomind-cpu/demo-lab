@@ -7,6 +7,6 @@
     "backend"
   ],
   "scripts": {
-    "build": "npm run build --workspace=frontend && cp -r frontend/dist public"
+    "build": "npm run build --workspace=frontend"
   }
 }
